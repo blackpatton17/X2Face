@@ -21,7 +21,7 @@ def weights_init_normal(m):
     elif classname.find('Linear') != -1:
         init.uniform(m.weight.data, 0.0, 0.02)
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
+        init.uniform(m.weight.data, 0.02, 1.0)
         init.constant(m.bias.data, 0.0)
 
 
@@ -32,7 +32,7 @@ def weights_init_xavier(m):
     elif classname.find('Linear') != -1:
         init.xavier_normal(m.weight.data, gain=1)
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
+        init.uniform(m.weight.data, 0.02, 1.0)
         init.constant(m.bias.data, 0.0)
 
 
@@ -43,7 +43,7 @@ def weights_init_kaiming(m):
     elif classname.find('Linear') != -1:
         init.kaiming_normal(m.weight.data, a=0, mode='fan_in')
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
+        init.uniform(m.weight.data, 0.02, 1.0)
         init.constant(m.bias.data, 0.0)
 
 
@@ -55,7 +55,7 @@ def weights_init_orthogonal(m):
     elif classname.find('Linear') != -1:
         init.orthogonal(m.weight.data, gain=1)
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
+        init.uniform(m.weight.data, 0.02, 1.0)
         init.constant(m.bias.data, 0.0)
 
 
@@ -213,7 +213,7 @@ class UnetSkipConnectionBlockBetterUpsampler(nn.Module):
         upnorm = norm_layer(outer_nc)
 
         if outermost:
-            upsample = nn.Upsample(scale_factor=2, mode='bilinear')
+            upsample = nn.Upsample(Resize_factor=2, mode='bilinear')
             upconv = nn.Conv2d(inner_nc, outer_nc,
                                         kernel_size=3, stride=1,
                                         padding=1, bias=use_bias)
@@ -222,7 +222,7 @@ class UnetSkipConnectionBlockBetterUpsampler(nn.Module):
             self.up = nn.Sequential(*up)
             self.down = nn.Sequential(*down)
         elif innermost:
-            upsample = nn.Upsample(scale_factor=2, mode='bilinear')
+            upsample = nn.Upsample(Resize_factor=2, mode='bilinear')
             upconv = nn.Conv2d(inner_nc, outer_nc,
                                         kernel_size=3, stride=1,
                                         padding=1, bias=use_bias)
@@ -234,7 +234,7 @@ class UnetSkipConnectionBlockBetterUpsampler(nn.Module):
                 self.posefrombottle = nn.Linear(128,3)
                 self.bottlefrompose = nn.Sequential(nn.Linear(3, 128, bias=False), nn.BatchNorm1d(128))
         else:
-            upsample = nn.Upsample(scale_factor=2, mode='bilinear')
+            upsample = nn.Upsample(Resize_factor=2, mode='bilinear')
             upconv = nn.Conv2d(inner_nc, outer_nc,
                                         kernel_size=3, stride=1,
                                         padding=1, bias=use_bias)
