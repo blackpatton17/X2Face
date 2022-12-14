@@ -16,7 +16,7 @@ import torchvision
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
-from torchvision.transforms import ToTensor, Scale, Compose
+from torchvision.transforms import ToTensor, Resize, Compose
 import torch.optim as optim
 from torch.autograd import Variable
 from UnwrappedFace import UnwrappedFaceWeightedAverage

@@ -61,7 +61,7 @@ def weights_init_normal(m):
     elif classname.find('Linear') != -1:
         init.uniform(m.weight.data, 0.0, 0.02)
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
+        init.uniform(m.weight.data, 0.02, 1.0)
         init.constant(m.bias.data, 0.0)
 
 
@@ -85,7 +85,7 @@ def weights_init_kaiming(m):
     elif classname.find('Linear') != -1:
         init.kaiming_normal(m.weight.data, a=0, mode='fan_in')
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
+        init.uniform(m.weight.data, 0.02, 1.0)
         init.constant(m.bias.data, 0.0)
 
 
@@ -97,7 +97,7 @@ def weights_init_orthogonal(m):
     elif classname.find('Linear') != -1:
         init.orthogonal(m.weight.data, gain=1)
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
+        init.uniform(m.weight.data, 0.02, 1.0)
         init.constant(m.bias.data, 0.0)
 
 

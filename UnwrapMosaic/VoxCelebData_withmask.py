@@ -2,7 +2,7 @@
 # Load the dataset
 import torch.utils.data as data
 import numpy as np
-from torchvision.transforms import ToTensor, Scale, Compose, Pad, RandomHorizontalFlip, CenterCrop, RandomCrop, Resize
+from torchvision.transforms import ToTensor, Resize, Compose, Pad, RandomHorizontalFlip, CenterCrop, RandomCrop, Resize
 from PIL import Image
 
 import torch
@@ -30,7 +30,7 @@ class VoxCeleb(data.Dataset):
                 self.input_indices = files['input_indices']
                 self.landmarks = files['landmarks']
                 self.num_views = num_views
-                self.transform = Compose([Scale((256,256)), ToTensor()])
+                self.transform = Compose([Resize((256,256)), ToTensor()])
 
         def __len__(self):
                 return self.image_names.shape[0] - 1
